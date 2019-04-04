@@ -146,12 +146,12 @@ object KafkaDirectStreaming {
     transform.foreachRDD(rdd => {
       // 维护偏移量
       for (o <- offsetRange) {
-        val lists = recordQuery(topic, groupName, o.partition)
-        if (lists.head > 0) {
+        val off = recordQuery(topic, groupName, o.partition)
+        if (off > 0) {
           updateOffset(topic, groupName, o.partition, o.untilOffset.toInt)
         } else {
           updateOffset(topic, groupName, o.partition, o.untilOffset.toInt, isUp = false)
-        }
+        }v
       }
     })
 
